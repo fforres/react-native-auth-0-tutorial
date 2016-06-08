@@ -2,20 +2,44 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  View
+  View,
+  TextInput,
 } from 'react-native';
 
-export default class Login extends Component {
+
+
+export default React.createClass({
+  getInitialState: function() {
+    return {
+      text: '',
+      password: '',
+    };
+  },
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.saludo}>
-          Hola!
+        <Text>
+           Usuario
         </Text>
+        <TextInput
+          style={styles.textInput}
+          onChangeText={(text) => this.setState({text})}
+          value={this.state.text}
+        />
+        <Text>
+           Contraseña
+        </Text>
+        <TextInput
+          secureTextEntry
+          style={styles.textInput}
+          onChangeText={(password) => this.setState({password})}
+          value={this.state.password}
+        />
       </View>
     );
   }
-}
+})
 
 const styles = StyleSheet.create({
   container: {
@@ -24,8 +48,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  saludo: {
-    fontSize: 40,
-    textAlign: 'center'
+  textInput: {
+    width: 300,
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1
   }
 });
