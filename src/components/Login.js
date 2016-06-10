@@ -4,6 +4,7 @@ import {
   Text,
   View,
   TextInput,
+  TouchableHighlight,
 } from 'react-native';
 
 
@@ -36,6 +37,16 @@ export default React.createClass({
           onChangeText={(password) => this.setState({password})}
           value={this.state.password}
         />
+        <TouchableHighlight
+          onPress={() => {
+             alert(JSON.stringify(this.state))
+          }}
+        >
+          <Text>
+            Submit!
+          </Text>
+        </TouchableHighlight>
+
       </View>
     );
   }
@@ -49,9 +60,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   textInput: {
-    width: 300,
     height: 40,
-    borderColor: 'gray',
+    width: 300,
     borderWidth: 1
   }
 });
