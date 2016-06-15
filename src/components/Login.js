@@ -7,8 +7,6 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
-
-
 export default React.createClass({
   getInitialState: function() {
     return {
@@ -39,7 +37,14 @@ export default React.createClass({
         />
         <TouchableHighlight
           onPress={() => {
-             alert(JSON.stringify(this.state))
+            if(
+              this.state.text.toLowerCase() === "hola" &&
+              this.state.password === "mundo"
+            ){
+              this.props.navigator.push({name:'Dashboard', index:1});
+            } else {
+              alert("Wow...Usuario inválido")
+            }
           }}
         >
           <Text>
@@ -62,6 +67,7 @@ const styles = StyleSheet.create({
   textInput: {
     height: 40,
     width: 300,
+    alignSelf: "center",
     borderWidth: 1
   }
 });
