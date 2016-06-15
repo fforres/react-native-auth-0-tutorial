@@ -3,11 +3,10 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   TouchableHighlight,
 } from 'react-native';
-
-
+import Auth0Lock from 'react-native-lock';
+let lock = new Auth0Lock({clientId: "xoy0wSexrEaLTcucZgsM5zh7GUCb3pbG", domain: "fforres.auth0.com"});
 
 export default React.createClass({
   getInitialState: function() {
@@ -16,37 +15,26 @@ export default React.createClass({
       password: '',
     };
   },
-
+  login: function(){
+    lock.show({
+      closable: true
+    }, (err, profile, token) => {
+      if (!err) {
+        alert("bienvenido: " + profile.nickname)
+        this.props.navigator.push({name:'Dashboard', index:1});
+      }
+    });
+  },
   render() {
     return (
       <View style={styles.container}>
-        <Text>
-           Usuario
-        </Text>
-        <TextInput
-          style={styles.textInput}
-          onChangeText={(text) => this.setState({text})}
-          value={this.state.text}
-        />
-        <Text>
-           Contraseña
-        </Text>
-        <TextInput
-          secureTextEntry
-          style={styles.textInput}
-          onChangeText={(password) => this.setState({password})}
-          value={this.state.password}
-        />
         <TouchableHighlight
-          onPress={() => {
-             alert(JSON.stringify(this.state))
-          }}
+          onPress={this.login}
         >
           <Text>
-            Submit!
+            Ingresa a la app!
           </Text>
         </TouchableHighlight>
-
       </View>
     );
   }
@@ -59,9 +47,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  textInput: {
-    height: 40,
-    width: 300,
-    borderWidth: 1
-  }
 });

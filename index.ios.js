@@ -8,8 +8,10 @@ import {
   AppRegistry,
   StyleSheet,
   View,
+  Navigator,
 } from 'react-native';
-import Login from './src/components/Dashboard';
+import Login from './src/components/Login';
+import Dashboard from './src/components/Dashboard';
 class reactnativeauth0tutorial extends Component {
   constructor(props) {
     super(props);
@@ -18,9 +20,21 @@ class reactnativeauth0tutorial extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Login/>
+        <Navigator
+          initialRoute={{ name: 'Login' }}
+          style={styles.nav}
+          renderScene={ this.renderScene }
+        />
       </View>
     );
+  }
+  renderScene(route, navigator) {
+    if(route.name === 'Login') {
+      return <Login navigator={navigator} />
+    }
+    if(route.name === 'Dashboard') {
+      return <Dashboard navigator={navigator} />
+    }
   }
 }
 const styles = StyleSheet.create({
@@ -30,5 +44,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
+  nav: {
+    flex:1,
+    alignSelf: 'stretch'
+  }
 });
 AppRegistry.registerComponent('reactnativeauth0tutorial', () => reactnativeauth0tutorial);
